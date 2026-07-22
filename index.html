@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Calculadora de Carga Instalada</title>
+
+    <link rel="stylesheet" href="index.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="faviconsite.ico" type="image/x-icon">
+</head>
+
+<body>
+
+<header>
+
+    <h1>⚡ JV Engenharia Elétrica</h1>
+
+    <p>Calculadora de Carga Instalada</p>
+
+</header>
+
+
+<main class="container">
+
+
+    <!-- ========================= -->
+    <!-- DADOS -->
+    <!-- ========================= -->
+
+    <section class="card">
+
+        <h2>Dados do Projeto</h2>
+
+        <div class="campo">
+
+            <label>Área Construída (m²)</label>
+
+            <input
+                type="number"
+                id="area"
+                placeholder="Ex.: 120">
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>Número de Cômodos</label>
+
+            <input
+                type="number"
+                id="comodos"
+                placeholder="Ex.: 8">
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>Potência Total das TUEs (W)</label>
+
+            <input
+                type="number"
+                id="tue"
+                placeholder="Ex.: 5500">
+
+        </div>
+
+
+        <button id="calcular">
+
+            Calcular
+
+        </button>
+
+    </section>
+
+
+
+    <!-- ========================= -->
+    <!-- RESULTADOS -->
+    <!-- ========================= -->
+
+    <section class="card resultado">
+
+        <h2>Resultados</h2>
+
+
+        <div class="linha">
+
+            <span>Tomadas</span>
+
+            <strong id="tomadas">-</strong>
+
+        </div>
+
+
+        <div class="linha">
+
+            <span>Potência da Iluminação</span>
+
+            <strong id="iluminacao">-</strong>
+
+        </div>
+
+
+        <div class="linha">
+
+            <span>Potência das TUGs</span>
+
+            <strong id="tug">-</strong>
+
+        </div>
+
+
+        <div class="linha">
+
+            <span>Potência das TUEs</span>
+
+            <strong id="tueResultado">-</strong>
+
+        </div>
+
+
+        <div class="linha">
+
+            <span>Carga Instalada</span>
+
+            <strong id="carga">-</strong>
+
+        </div>
+
+
+        <div class="linha">
+
+            <span>Categoria</span>
+
+            <strong id="categoria">-</strong>
+
+        </div>
+
+
+        <div class="linha">
+
+            <span>Sistema</span>
+
+            <strong id="sistema">-</strong>
+
+        </div>
+
+
+        <div class="linha">
+
+            <span>Disjuntor Geral</span>
+
+            <strong id="disjuntor">-</strong>
+
+        </div>
+
+
+        <div class="linha">
+
+            <span>Ramal de Conexão</span>
+
+            <strong id="ramalConexao">-</strong>
+
+        </div>
+
+
+        <div class="linha">
+
+            <span>Ramal de Entrada</span>
+
+            <strong id="ramalEntrada">-</strong>
+
+        </div>
+
+
+        <div class="linha">
+
+            <span>Ramal de Distribuição</span>
+
+            <strong id="ramalDistribuicao">-</strong>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+
+<footer>
+
+    Desenvolvido por JV Engenharia Elétrica
+
+</footer>
+
+
+<script src="index.js"></script>
+
+</body>
+
+</html>
