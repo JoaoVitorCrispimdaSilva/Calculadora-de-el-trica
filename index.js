@@ -3,13 +3,19 @@
 // JV Engenharia Elétrica
 //========================================
 
+
 document.addEventListener("DOMContentLoaded", () => {
 
-    document
-        .getElementById("calcular")
-        .addEventListener("click", calcularProjeto);
+    const botao = document.getElementById("calcular");
+
+    if(botao){
+
+        botao.addEventListener("click", calcularProjeto);
+
+    }
 
 });
+
 
 //========================================
 // TOMADAS GERAIS
@@ -17,42 +23,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function calcularTomadas(area){
 
-    if(area < 9) return 1;
-    if(area <= 16) return 3;
-    if(area <= 20) return 4;
-    if(area <= 30) return 5;
+    if(area < 6) return 1;
+    if(area <= 10) return 2;
+    if(area <= 20) return 3;
+    if(area <= 30) return 4;
+    if(area <= 40) return 5;
     if(area <= 50) return 6;
-    if(area <= 70) return 7;
-    if(area <= 90) return 8;
-    if(area <= 110) return 9;
-    if(area <= 140) return 10;
-    if(area <= 170) return 11;
-    if(area <= 200) return 12;
-    if(area <= 220) return 13;
-    if(area <= 250) return 14;
 
-    return 14;
+    return Math.ceil(area / 10);
 
 }
 
+
+
 //========================================
-// TOMADAS DA COZINHA
+// TOMADAS COZINHA
 //========================================
 
 function calcularTomadasCozinha(area){
 
-    if(area < 15)
+    if(area <= 15)
         return 1;
 
     if(area <= 30)
         return 2;
 
-    if(area <= 250)
-        return 3;
-
     return 3;
 
 }
+
+
 
 //========================================
 // ILUMINAÇÃO
@@ -64,8 +64,10 @@ function calcularIluminacao(comodos){
 
 }
 
+
+
 //========================================
-// POTÊNCIA DAS TUGS
+// TUG
 //========================================
 
 function calcularTUG(area){
@@ -74,9 +76,18 @@ function calcularTUG(area){
 
     const cozinha = calcularTomadasCozinha(area);
 
-    return (tomadas * 100) + (cozinha * 600);
+
+    return (
+
+        (tomadas * 100) +
+
+        (cozinha * 600)
+
+    );
 
 }
+
+
 
 //========================================
 // CARGA INSTALADA
@@ -84,90 +95,54 @@ function calcularTUG(area){
 
 function calcularCarga(iluminacao,tug,tue){
 
-    return (iluminacao + tug + tue) / 1000;
+    return (
+
+        iluminacao +
+
+        tug +
+
+        tue
+
+    ) / 1000;
 
 }
 
+
+
 //========================================
-// CATEGORIA
+// BUSCAR CATEGORIA
 //========================================
 
-function calcularCategoria(carga){
+function buscarCategoria(valor){
 
-    if(carga <= 10)
-        return "M2";
 
-    return "M3";
+    for(let item of tabelaNeoenergia){
+
+
+        if(
+
+            valor >= item.demandaMin &&
+
+            valor <= item.demandaMax
+
+        ){
+
+            return item;
+
+        }
+
+
+    }
+
+
+    return null;
 
 }
 
-//========================================
-// SISTEMA DE FORNECIMENTO
-//========================================
 
-function calcularSistema(categoria){
-
-    if(categoria === "M2")
-        return "Monofásico";
-
-    return "Trifásico";
-
-}
 
 //========================================
-// DISJUNTOR
-//========================================
-
-function calcularDisjuntor(categoria){
-
-    if(categoria === "M2")
-        return "40 A";
-
-    return "63 A";
-
-}
-
-//========================================
-// RAMAL DE CONEXÃO
-//========================================
-
-function calcularRamalConexao(categoria){
-
-    if(categoria === "M2")
-        return "6+6 CU CONC ou 10+10 AL CONC";
-
-    return "10+10 CU CONC ou 16+16 AL CONC";
-
-}
-
-//========================================
-// RAMAL DE ENTRADA
-//========================================
-
-function calcularRamalEntrada(categoria){
-
-    if(categoria === "M2")
-        return "6/6 CU XLPE/HEPR";
-
-    return "16/16 CU XLPE/HEPR";
-
-}
-
-//========================================
-// RAMAL DE DISTRIBUIÇÃO
-//========================================
-
-function calcularRamalDistribuicao(categoria){
-
-    if(categoria === "M2")
-        return "6/6/6 CU XLPE/HEPR ou 10/10/10 CU PVC";
-
-    return "16/16/16 CU XLPE/HEPR";
-
-}
-
-//========================================
-// FORMATAR NÚMERO
+// FORMATAR NÚMEROS
 //========================================
 
 function formatar(valor){
@@ -175,11 +150,14 @@ function formatar(valor){
     return Number(valor).toLocaleString("pt-BR",{
 
         minimumFractionDigits:2,
+
         maximumFractionDigits:2
 
     });
 
 }
+
+
 
 //========================================
 // MOSTRAR RESULTADO
@@ -187,40 +165,235 @@ function formatar(valor){
 
 function mostrar(id,valor){
 
-    document.getElementById(id).textContent = valor;
+    const elemento = document.getElementById(id);
+
+
+    if(elemento){
+
+        elemento.textContent = valor;
+
+    }
+
+}
+//========================================
+// TABELA NEOENERGIA
+//========================================
+
+const tabelaNeoenergia = [
+
+{
+    categoria:"M2",
+    demandaMin:0,
+    demandaMax:10,
+
+    sistema:"Monofásico",
+
+    disjuntor:"40 A",
+
+    ramalConexao:"6+6 CU CONC ou 10+10 AL CONC",
+
+    ramalEntrada:"6/6 CU XLPE/HEPR",
+
+    ramalDistribuicao:"6/6/6 CU XLPE/HEPR",
+
+    caixa:"Monofásica ou Polifásica",
+
+    medicao:"Direta",
+
+    eletroduto:"1 1/4",
+
+},
+
+
+{
+    categoria:"M3",
+
+    demandaMin:10.1,
+    demandaMax:15,
+
+    sistema:"Monofásico",
+
+    disjuntor:"63 A",
+
+    ramalConexao:"10+10 CU CONC ou 16+16 AL CONC",
+
+    ramalEntrada:"16/16 CU XLPE/HEPR",
+
+    ramalDistribuicao:"16/16/16 CU XLPE/HEPR",
+
+    caixa:"Monofásica ou Polifásica",
+
+    medicao:"Direta",
+
+    eletroduto:"1 1/4",
+
+},
+
+
+{
+    categoria:"T6",
+
+    demandaMin:15.1,
+    demandaMax:21,
+
+    sistema:"Trifásico",
+
+    disjuntor:"32 A",
+
+    ramalConexao:"3x10+10 AL MULT",
+
+    ramalEntrada:"3x6/6 CU XLPE/HEPR",
+
+    ramalDistribuicao:"3x6/6 CU XLPE/HEPR",
+
+    caixa:"Polifásica",
+
+    medicao:"Direta",
+
+    eletroduto:"1 1/4",
+
+},
+
+
+{
+    categoria:"T7",
+
+    demandaMin:21.1,
+    demandaMax:26,
+
+    sistema:"Trifásico",
+
+    disjuntor:"40 A",
+
+    ramalConexao:"3x10+10 AL MULT",
+
+    ramalEntrada:"3x6/6 CU XLPE/HEPR",
+
+    ramalDistribuicao:"3x10/10/10 CU XLPE/PVC",
+
+    caixa:"Polifásica",
+
+    medicao:"Direta",
+
+    eletroduto:"1 1/4",
+
+},
+
+
+{
+    categoria:"T8",
+
+    demandaMin:26.1,
+    demandaMax:33,
+
+    sistema:"Trifásico",
+
+    disjuntor:"50 A",
+
+    ramalConexao:"3x16+16 AL MULT",
+
+    ramalEntrada:"3x10/10 CU XLPE/HEPR",
+
+    ramalDistribuicao:"3x10/10/10 CU XLPE/PVC",
+
+    caixa:"Polifásica",
+
+    medicao:"Direta",
+
+    eletroduto:"1 1/4",
+
+},
+
+
+{
+    categoria:"T9",
+
+    demandaMin:33.1,
+    demandaMax:40,
+
+    sistema:"Trifásico",
+
+    disjuntor:"63 A",
+
+    ramalConexao:"3x16+16 AL MULT",
+
+    ramalEntrada:"3x16/16 CU XLPE/HEPR",
+
+    ramalDistribuicao:"3x16/16/16 CU XLPE/HEPR",
+
+    caixa:"Polifásica",
+
+    medicao:"Direta",
+
+    eletroduto:"1 1/4",
+
+},
+
+
+{
+    categoria:"T10",
+
+    demandaMin:40.1,
+    demandaMax:52,
+
+    sistema:"Trifásico",
+
+    disjuntor:"80 A",
+
+    ramalConexao:"3x25+25 AL MULT",
+
+    ramalEntrada:"3x25/25 CU XLPE/HEPR",
+
+    ramalDistribuicao:"3x25/25/25 CU XLPE/HEPR",
+
+    caixa:"Polifásica",
+
+    medicao:"Direta",
+
+    eletroduto:"2 pol.",
 
 }
 
+];
 //========================================
 // VALIDAÇÃO
 //========================================
 
 function validar(area,comodos,tue){
 
-    if(area <= 0){
 
-        alert("Informe a área construída.");
+    if(isNaN(area) || area <= 0){
+
+        alert("Informe uma área válida.");
+
         return false;
 
     }
 
-    if(comodos <= 0){
 
-        alert("Informe o número de cômodos.");
+    if(isNaN(comodos) || comodos <= 0){
+
+        alert("Informe a quantidade de cômodos.");
+
         return false;
 
     }
 
-    if(tue < 0){
 
-        alert("Potência das TUEs inválida.");
+    if(isNaN(tue) || tue < 0){
+
+        alert("Informe uma potência de TUE válida.");
+
         return false;
 
     }
+
 
     return true;
 
 }
+
+
 
 //========================================
 // FUNÇÃO PRINCIPAL
@@ -228,85 +401,162 @@ function validar(area,comodos,tue){
 
 function calcularProjeto(){
 
-    const area = Number(document.getElementById("area").value);
 
-    const comodos = Number(document.getElementById("comodos").value);
+    const area = Number(
+        document.getElementById("area").value
+    );
 
-    const tue = Number(document.getElementById("tue").value);
 
-    if(!validar(area,comodos,tue))
+    const comodos = Number(
+        document.getElementById("comodos").value
+    );
+
+
+    const tue = Number(
+        document.getElementById("tue").value
+    );
+
+
+
+    if(!validar(area,comodos,tue)){
+
         return;
+
+    }
+
+
 
     const tomadas = calcularTomadas(area);
 
-    const cozinha = calcularTomadasCozinha(area);
 
     const iluminacao = calcularIluminacao(comodos);
 
+
     const tug = calcularTUG(area);
 
-    const carga = calcularCarga(iluminacao,tug,tue);
 
-    const categoria = calcularCategoria(carga);
+    const carga = calcularCarga(
 
-    const sistema = calcularSistema(categoria);
+        iluminacao,
 
-    const disjuntor = calcularDisjuntor(categoria);
+        tug,
 
-    const ramalConexao = calcularRamalConexao(categoria);
+        tue
 
-    const ramalEntrada = calcularRamalEntrada(categoria);
+    );
 
-    const ramalDistribuicao = calcularRamalDistribuicao(categoria);
 
-    //------------------------------------
 
-    mostrar("tomadas", tomadas);
+    const dados = buscarCategoria(carga);
 
-    mostrar("iluminacao", iluminacao + " W");
 
-    mostrar("tug", tug + " W");
 
-    mostrar("tueResultado", tue + " W");
+    if(!dados){
 
-    mostrar("carga", formatar(carga) + " kW");
+        alert(
+        "Carga fora da tabela disponível."
+        );
 
-    mostrar("categoria", categoria);
+        return;
 
-    mostrar("sistema", sistema);
+    }
 
-    mostrar("disjuntor", disjuntor);
 
-    mostrar("ramalConexao", ramalConexao);
 
-    mostrar("ramalEntrada", ramalEntrada);
+    // RESULTADOS
 
-    mostrar("ramalDistribuicao", ramalDistribuicao);
+    mostrar(
+        "tomadas",
+        tomadas
+    );
 
-    //------------------------------------
 
-    console.clear();
+    mostrar(
+        "iluminacao",
+        iluminacao+" W"
+    );
 
-    console.log("======= RESULTADO =======");
 
-    console.log("Área:", area);
+    mostrar(
+        "tug",
+        tug+" W"
+    );
 
-    console.log("Cômodos:", comodos);
 
-    console.log("Tomadas:", tomadas);
+    mostrar(
+        "tueResultado",
+        tue+" W"
+    );
 
-    console.log("Tomadas Cozinha:", cozinha);
 
-    console.log("Iluminação:", iluminacao);
+    mostrar(
+        "carga",
+        formatar(carga)+" kW"
+    );
 
-    console.log("TUG:", tug);
 
-    console.log("TUE:", tue);
+    mostrar(
+        "categoria",
+        dados.categoria
+    );
 
-    console.log("Carga:", carga);
 
-    console.log("Categoria:", categoria);
+    mostrar(
+        "sistema",
+        dados.sistema
+    );
 
-    console.log("Sistema:", sistema);
+
+    mostrar(
+        "disjuntor",
+        dados.disjuntor
+    );
+
+
+    mostrar(
+        "ramalConexao",
+        dados.ramalConexao
+    );
+
+
+    mostrar(
+        "ramalEntrada",
+        dados.ramalEntrada
+    );
+
+
+    mostrar(
+        "ramalDistribuicao",
+        dados.ramalDistribuicao
+    );
+
+
+    mostrar(
+        "caixa",
+        dados.caixa
+    );
+
+
+    mostrar(
+        "medicao",
+        dados.medicao
+    );
+
+
+    mostrar(
+        "eletroduto",
+        dados.eletroduto
+    );
+
+
+
+    console.log("===== RESULTADO =====");
+
+    console.log("Carga:",carga);
+
+    console.log("Categoria:",dados.categoria);
+
+    console.log("Sistema:",dados.sistema);
+
 
 }
