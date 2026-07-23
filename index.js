@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('calcularArea').addEventListener('click', calcularAreaConstruida);
     document.getElementById('limparArea').addEventListener('click', limparArea);
     document.querySelectorAll('.aba').forEach((aba) => aba.addEventListener('click', () => abrirAba(aba.dataset.aba)));
+    document.querySelectorAll('[data-aba]').forEach((botao) => {
+        if (!botao.classList.contains('aba')) botao.addEventListener('click', () => abrirAba(botao.dataset.aba));
+    });
 });
 
 function abrirAba(nome) {
