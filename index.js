@@ -92,3 +92,5 @@ function calcularProjeto() {
     mostrar('ramalEntrada', dados.ramalEntrada);
     mostrar('ramalDistribuicao', dados.ramalDistribuicao);
 }
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4190987325045849"
+     crossorigin="anonymous"></script>
