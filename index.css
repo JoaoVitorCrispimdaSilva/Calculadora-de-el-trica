@@ -63,6 +63,8 @@ button:active { transform: scale(.98); }
 .hero-acoes button { width: auto; padding: 14px 18px; font-size: 15px; }
 .hero-acoes .botao-claro { background: white; color: #16633f; }
 .hero-acoes .botao-claro:hover { background: #e7f8ef; }
+.link-sobre { display: block; width: auto; margin-top: 18px; padding: 0; background: transparent; color: #e3faeb; font-size: 14px; text-decoration: underline; }
+.link-sobre:hover { background: transparent; color: white; transform: none; }
 .secao-home { margin-top: 58px; }
 .titulo-secao h2 { color: #1f2937; font-size: 28px; }
 .titulo-secao > p:not(.sobretitulo) { margin-top: 10px; color: #6b7280; }
@@ -77,7 +79,19 @@ button:active { transform: scale(.98); }
 .itens-glossario article { padding: 20px; border: 1px solid #dce9e1; border-radius: 12px; background: white; }
 .itens-glossario p { margin-top: 8px; color: #6b7280; font-size: 14px; line-height: 1.55; }
 
+.pagina-container { max-width: 830px; margin: 40px auto 70px; padding: 20px; }
+.pagina-conteudo { line-height: 1.7; }
+.pagina-conteudo h2 { margin-bottom: 18px; }
+.pagina-conteudo h3 { margin: 28px 0 8px; color: #1f2937; font-size: 18px; }
+.pagina-conteudo p { color: #4b5563; }
+.pagina-conteudo a { color: #0d7745; font-weight: 600; }
+.email-contato { display: inline-block; margin: 22px 0 4px; padding: 14px 18px; border-radius: 10px; background: #e7f8ef; font-size: 16px; }
+.texto-menor { margin-top: 22px; font-size: 13px; }
+
 footer { margin-top: 40px; padding: 25px; text-align: center; color: #6b7280; font-size: 14px; }
+.links-rodape { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px; margin-top: 12px; }
+.links-rodape button { width: auto; padding: 0; background: transparent; color: #39664f; font-size: 13px; font-weight: 600; }
+.links-rodape button:hover { background: transparent; color: #0d7745; text-decoration: underline; transform: none; }
 
 @media (max-width: 900px) { .container { grid-template-columns: 1fr; } header h1 { font-size: 28px; } .lista-comodos, .cards-home, .itens-glossario { grid-template-columns: 1fr; } }
-@media (max-width: 600px) { .card, .area-card { padding: 20px; } header { padding-top: 25px; } button { font-size: 16px; } .resultado .linha { flex-direction: column; align-items: flex-start; gap: 5px; } .area-intro { flex-direction: column; } .total-area { width: 100%; text-align: left; } .abas { gap: 2px; } .aba { padding: 12px 10px; font-size: 13px; } .acoes-area { flex-direction: column; } .home-container { margin-top: 20px; padding: 14px; } .hero-home { padding: 30px 22px; } .hero-acoes { flex-direction: column; } .hero-acoes button { width: 100%; } }
+@media (max-width: 600px) { .card, .area-card { padding: 20px; } header { padding-top: 25px; } button { font-size: 16px; } .resultado .linha { flex-direction: column; align-items: flex-start; gap: 5px; } .area-intro { flex-direction: column; } .total-area { width: 100%; text-align: left; } .abas { gap: 2px; } .aba { padding: 12px 10px; font-size: 13px; } .acoes-area { flex-direction: column; } .home-container, .pagina-container { margin-top: 20px; padding: 14px; } .hero-home { padding: 30px 22px; } .hero-acoes { flex-direction: column; } .hero-acoes button { width: 100%; } .links-rodape { flex-direction: column; gap: 10px; } .links-rodape button { font-size: 14px; } }
